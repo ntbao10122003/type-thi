@@ -1,0 +1,119 @@
+/* home */
+
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header .logo a {
+    font-size: 24px;
+    color: rgb(11, 11, 10);
+    font-weight: 800;
+    margin-left: 15px;
+}
+.header .nav ul{
+    display: flex;
+}
+.header .nav ul li {
+    margin: 0px 25px;
+}
+.header .nav ul li a {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* main */
+.box-product {
+    padding-top: 45px;
+}
+.main {
+    height: inherit;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row ;
+    flex-wrap: wrap;
+}
+.main .Product{
+    width: 25%;
+    border: 1px solid black;
+    margin: 0px 45px;
+    margin-bottom: 45px;
+}
+
+
+/* signup */
+
+.form {
+    width: 30%;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+input {
+    border: 1px solid black;
+    margin: 25px 15px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.dangky{
+    background-color: red;
+    border: 1px solid black;
+    margin-left: 45%;
+}
+
+/* add */
+
+select {
+    border: 1px solid black;
+}
+.add {
+    background-color: red;
+    border: 1px solid black;
+    margin-left: 35px;
+}
+textarea {
+    margin-left: 15px;
+    border: 1px solid black;
+}
+
+
+/* update */
+
+.update {
+    background-color: red;
+    border: 1px solid black;
+    margin-left: 35px;
+}
+
+/* list */
+
+table {
+    border: 1px solid black;
+}
+thead {
+    border: 1px solid black;
+
+}
+thead th {
+    border: 1px solid black;
+}
+tbody td {
+    border: 1px solid black;
+}
+.List{
+    display: flex; 
+}
+.List button{
+    background-color: red;
+    border: 1px solid black;
+    margin: 15px 25px;
+    width: 35px;
+    height: 30px;
+}

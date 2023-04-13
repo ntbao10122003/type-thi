@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$JlEUrLuHHvZee3jGB31MoO4hlXLxd9bkNINAk4OKdvRapdbNbboBu",
+      "name": "bảo",
+      "phoneNumber": "0352740831",
+      "confirmPassword": "123456",
+      "role": "admin",
+      "id": 3
+    },
+    {
+      "email": "nguyenthebao1711@gmail.com",
+      "password": "$2a$10$KlgwoKEs83nokYrAj0ClP.4/DD1FHg8zyZl2m8N7GZmjfqYKVZ1aG",
+      "name": "nguyễn thế bảo",
+      "confirmPassword": "123456",
+      "id": 4
+    },
+    {
+      "email": "baontph21353@fpt.edu.vn",
+      "password": "$2a$10$Vw2ywqVm6cc3LOXsfBPMqOsz3fKIz5CiXgnhzSTA9uUvnueBCXe6q",
+      "name": "bao",
+      "confirmPassword": "123456",
+      "id": 5
+    },
+    {
+      "email": "baontph21353@fpt.edu.vn",
+      "password": "$2a$10$b.YOuB7r7NG4q.9e2cnv/emnULe0RWM9a6beVCBLG7EHFCZFTOFyG",
+      "name": "bao",
+      "confirmPassword": "123456",
+      "id": 6
+    }
+  ],
+  "products": [
+    {
+      "id": "2",
+      "name": "Áo khoác dù update",
+      "brand": "Uniqlo",
+      "description": "Áo khoác dù Uniqlo với chất liệu chống thấm nước và giữ ấm tốt, phù hợp với thời tiết lạnh.",
+      "price": 1490000,
+      "origin": "trung quoc"
+    },
+    {
+      "id": "3",
+      "name": "Áo khoác dù",
+      "brand": "Uniqlo",
+      "description": "Áo khoác dù Uniqlo với chất liệu chống thấm nước và giữ ấm tốt, phù hợp với thời tiết lạnh.",
+      "price": 1490000,
+      "origin": "trung quoc"
+    },
+    {
+      "id": "4",
+      "name": "Áo khoác dù",
+      "brand": "Uniqlo",
+      "description": "Áo khoác dù Uniqlo với chất liệu chống thấm nước và giữ ấm tốt, phù hợp với thời tiết lạnh.",
+      "price": 1490000,
+      "origin": "trung quoc"
+    },
+    {
+      "id": "5",
+      "name": "Áo khoác dù",
+      "brand": "Uniqlo",
+      "description": "Áo khoác dù Uniqlo với chất liệu chống thấm nước và giữ ấm tốt, phù hợp với thời tiết lạnh.",
+      "price": 1490000,
+      "origin": "trung quoc"
+    },
+    {
+      "id": "6",
+      "name": "Áo khoác dù",
+      "brand": "Uniqlo",
+      "description": "Áo khoác dù Uniqlo với chất liệu chống thấm nước và giữ ấm tốt, phù hợp với thời tiết lạnh.",
+      "price": 1490000,
+      "origin": "trung quoc"
+    }
+  ]
+}
