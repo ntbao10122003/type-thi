@@ -1,69 +1,92 @@
-import { Link, useParams} from "react-router-dom";
-import { getProducts } from "../../api/product";
-import { useEffect, useState } from "react";
-import { IProduct } from "../../models"
-const List = (props) => {
 
-    const [products, setProducts] = useState<IProduct[]>([]);
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { dlPro, getPro } from "../../api/product";
+const List = () => {
+    const [product , setProduct]= useState([]);
 
-    const fetchProducts = async () => {
-      try {
-        const { data } = await getProducts();
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    const show = async() => {
+        try {
+            const {data} = await getPro()
+            setProduct(data)
+        } catch (error) {
+           console.log(error);
+        }
+    }
 
-    const removeProduct = (id: IProduct) => {
-      setProducts(products.filter((item) => item.id !== id));
-        props.onRemove(id);
-      };
 
     useEffect(() => {
-        fetchProducts();
-      }, []);
+        show()
+    },[])
+
+
+
     return (
-        <div>
-            <table >
+     <>
+                                  <h1>list</h1>
+      <div className="overflow-x-auto">
+            <table className="min-w-full divide-y-2 divide-gray-200 text-sm">
                 <thead>
                     <tr>
-                        <th>tên sản phẩm</th>
-                        <th>thuơgn hiệu</th>
-                        <th>mô tả</th>
-                        <th>giá khuyến mãi</th>
-                        <th>xuất sứ</th>
-                        <th>thao tác</th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                            Name
+                        </th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                            brand
+                        </th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                            price
+                           
+                        </th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                             desc
+                        </th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                            thao tác
+                           
+                        </th>
+                        <th
+                            className="whitespace-nowrap px-4 py-2 text-left font-medium text-gray-900"
+                        >
+                        </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {products.map((product) => {
+
+                <tbody className="divide-y divide-gray-200">
+                  
+                    {product.map((product) => {
                         return (
-                        <tr>
-                            <td>{product.name}</td>
-                            <td>{product.brand}</td>
-                            <td>{product.description}</td>
-                            <td>{product.price}</td>
-                            <td>{product.origin}</td>
-                            <td>
-                            <div className="List">
-                                <button onClick={() => {if(window.confirm("thầy có muốn ra đề khó không")) {removeProduct(product.id)}}} >xóa</button> <br /> <br></br>
-                                
-                                <Link to={`/admin/product/${product.id}`}>
-                                <button>edit</button>
-                                </Link>
-                            </div>
-                            </td>
+                        <tr className="odd:bg-gray-50">
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name} </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.brand} </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.price} </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.desc}  </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"> <button onClick={()=>{if(window.confirm("ban co muon xoa khong")) 
+                                                                                        {dlPro(product.id); 
+                                                                                        window.location.reload()
+                                                                                        }}}>Xoa</button></td>
+                            
+                           
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"> <Link to={`/admin/update/${product.id}`}>edit</Link></td> 
                         </tr>
                         )
                     })}
+
+                    <Link to={"add"}>ADD</Link>
                 </tbody>
             </table>
-            <button >add</button>
-
-            
-           
         </div>
+    </>
     )
     
 }

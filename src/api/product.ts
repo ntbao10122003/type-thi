@@ -1,18 +1,28 @@
-import instance from ".";
-import { IProduct ,updateForm } from "../models";
-export const getProducts = () => {
-    return instance.get('/products');
+import axios from "axios"
+import { IProduct , updataform } from "../models"
+
+const ins = axios.create({
+  baseURL: ' http://localhost:3000',
+})
+export default ins;
+
+export const getPro = () => {
+  return ins.get('/products');
 }
-export const getProductById = (id: string) => {
-    return instance.get(`/products/${id}`);
-  };
-export const addProduct = (product: IProduct) => {
-    return instance.post("/products", product, );
-  };
-export const updateProduct = (id: string,body:updateForm) => {
-  const uri = "/products/" + id
-  return instance.put(uri, body)
-  };
-export const deleteProducts = (id:string) => {
-    return instance.delete(`/products/${id}`,)
+
+
+export const getProId = (id:String) => {
+  return ins.get(`/products/${id}`);
+}
+
+export const addPro = (data : IProduct) => {
+  return ins.post(`/products` , data);
+}
+
+export const  udPro = (id:string , data:updataform) => {
+  return ins.put(`/products/${id}` , data);
+}
+
+export const dlPro = (id : string) => {
+  return ins.delete(`/products/${id}`);
 }

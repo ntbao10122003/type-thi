@@ -1,65 +1,139 @@
-import React from "react";
+import { yupResolver } from "@hookform/resolvers/yup"
+import { SigninForm, signinSchema } from "../../../models"
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { SigninForm, signinSchema } from "../../../models";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { signin } from "../../../api/auth";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../../hook";
+import { signin } from "../../../api/auth";
 
 
 const Signin = () => {
-    const {register,handleSubmit,formState: { errors },} = useForm<SigninForm>({
-        resolver: yupResolver(signinSchema),
-      });
-    
-      const [user, setUser] = useLocalStorage("user", null);
-    
-      const navigate = useNavigate();
-    
-      const onSubmit = async (data: SigninForm) => {
+    const {register , handleSubmit , formState: {errors}} = useForm<SigninForm>({
+        resolver: yupResolver(signinSchema)
+    })
+    const navigate = useNavigate();
+
+
+    const[user , setUser] = useLocalStorage("user" , null);
+    const onSubmit = async(data : SigninForm) => {
         try {
-          const {
-            data: { accessToken, user },
-          } = await signin(data);
-          setUser({
-            accessToken,
-            ...user,
-          });
-          if(user.role ){
-            console.log(data);
-            navigate("/admin");
-          }else{
-            navigate("/home")
-          }
+            const {data : {accessToken , user}} = await signin(data)
+
+            setUser({
+                accessToken , ...user
+            })
+            if(user.role){
+                navigate('/admin')
+            }else{
+                navigate('/')
+            }
+            
         } catch (error) {
-          console.log(error);
+            console.log(error);
+            
         }
-      };
-
+    }
     return (
-    <form action="" className="form"  onSubmit={handleSubmit(onSubmit)}>
+      <>
+                  <h1>signin</h1>
+      <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-lg text-center">
+                <h1 className="text-2xl font-bold sm:text-3xl">Đăng nhập</h1>
 
-        <input 
-        {...register("email")}
-        className="email" type="text" placeholder="email" />
-        <label>email</label><br></br>
-        <p className="text-xs text-red-500">
-              {errors.email && errors.email.message}
-        </p>
+            </div>
 
-       
-        <input
-        {...register("password")}
-        className="password" type="password" placeholder="password" />
-        <label>password</label><br></br>
-        <p className="text-xs text-red-500">
-              {errors.password && errors.password.message}
-        </p>
-        
+            <form action="" className="mx-auto mt-8 mb-0 max-w-md space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                    <label htmlFor="email" className="sr-only">Email</label>
 
-        <button className="dangky">đăng nhập</button>
-       </form>
+                    <div className="relative">
+                        <input
+                            type="email"
+                            className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+                            placeholder="Enter email"
+                            {...register('email')}
+                            
+                        />
+                          <p className='text-red-600 text-[10px]'>
 
+{errors.email && errors.email.message}
+</p>
+
+                        <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-4 w-4 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                                />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div>
+                    <label htmlFor="password" className="sr-only">Password</label>
+
+                    <div className="relative">
+                        <input
+                            type="password"
+                            className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm"
+                            placeholder="Enter password"
+                            {...register('password')}
+
+                        />
+                          <p className='text-red-600 text-[10px]'>
+
+{errors.password && errors.password.message}
+</p>
+
+                        <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-4 w-4 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                    <p className="text-sm text-gray-500">
+                        No account?
+                        <a className="underline" href="">Sign up</a>
+                    </p>
+
+                    <button
+                        type="submit"
+                        className="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+                    >
+                        Sign in
+                    </button>
+                </div>
+            </form>
+        </div>
+      </>
     )
 }
 

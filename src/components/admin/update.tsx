@@ -1,96 +1,129 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom";
+import { getProId, udPro } from "../../api/product";
 import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { getProductById, updateProduct   } from "../../api/product";
-import { useParams, useNavigate } from "react-router-dom";
-import { updateForm, updateSchema } from "../../models";
+import { IProduct, addpro, updataform, updateSchema } from "../../models";
+import {yupResolver} from "@hookform/resolvers/yup"
+
+
+
+
+
+
 
 
 const Update = () => {
-    const {id} = useParams()
-    const navigate = useNavigate()
-    const {register, handleSubmit, formState: {errors}} = useForm<updateForm>({
-        resolver: yupResolver(updateSchema),
-        defaultValues: async () => {
-            if (id) {
-                return await fetchProductById(id)
+        const [product , setProduct] = useState([]);
+        const{id} = useParams();
+
+        const show = async ()=> {
+            try {
+                const {data} = await getProId(id)
+                setProduct(data)
+            } catch (error) {
+                console.log(error);
+                
             }
         }
-    })
-  
-    const onSubmit = async (data: updateForm) => {
-      try {
-          if (id) {
-              const response = await updateProduct(id, data)
-              console.log(response);
-              navigate('/admin')
-          }
-      }catch(err) {
-          console.log(err);
-      }
-  }
+        useEffect(() => {
+            show()
+        },[]);
 
-  const fetchProductById = async (id: string) => {
-    const {data} = await getProductById(id)
-    return data
-    
-}
+
+        const {register , handleSubmit , formState: {errors}} = useForm<updataform>({
+            resolver: yupResolver(updateSchema)
+        })
+        const navigate = useNavigate();
+        const add = async(data : addpro) => {
+            try {
+                const test : IProduct = {
+                    name :data.name,
+                    brand : data.brand,
+                    desc : data.desc,
+                    price : data.price
+                }
+                udPro(id,test)
+                navigate('/admin')
+            } catch (error) {
+                console.log(error);
+                
+            }
+        }
     return (
-        <form action="" className="form" onSubmit={handleSubmit(onSubmit)}>
-            <h1>ADD PRODUCT</h1>
-            <input 
-            {...register("name")}
-            className="name" type="text" placeholder="name" />
-            <label>tên sp </label><br></br>
-            <p className="text-xs text-red-500">
-            {errors.name && errors.name.message}
-            </p>
+        <>
+                                                    <h1>update</h1>
+        <section className="bg-gray-100">
+            <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+                    <div className="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
+                        <form action="" className="space-y-4" onSubmit={handleSubmit(add)}>
+                            <div>
+                                <label className="sr-only" htmlFor="name">Name</label>
+                                <input
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Name"
+                                    type="text"
+                                    id="name"
+                                    defaultValue={product.name}
+                                    {...register("name")}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    <label className="sr-only" htmlFor="brand">thuong_hieu</label>
+                                    <input
+                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                        placeholder="brand"
+                                        type="text"
+                                        id="brand"
+                                        defaultValue={product.brand}
+                                        {...register("brand")}
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="sr-only" htmlFor="price">sale</label>
+                                    <input
+                                        className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                        placeholder="price"
+                                        type="number"
+                                        id="price"
+                                        defaultValue={product.price}
+                                        {...register("price")}
+                                    />
+                                </div>
+                            </div>
 
 
 
-            <input
-            {...register("brand")}
-            className="thuonghieu" type="text" placeholder="thuong hiệu" />
-            <label>tên thương hiệu </label><br></br>
-            <p className="text-xs text-red-500">
-            {errors.brand && errors.brand.message}
-            </p>
+                            <div>
+                                <label className="sr-only" htmlFor="origin">mo_ta</label>
+                                <textarea
+                                    className="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="origin"
+                                    id="desc"
+                                    defaultValue={product.desc}
+                                    {...register("desc")}
+                                ></textarea>
+                            </div>
 
-            
-        
-            <textarea
-            {...register("description")}
-            className="mota" type="text" placeholder="mô tả" />
-            <label>mô tả </label><br></br>
-            <p className="text-xs text-red-500">
-            {errors.description && errors.description.message}
-            </p>
-            
+                            <div className="mt-4">
+                                <button
+                                    type="submit"
+                                    className="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                                >
+                                   Cập Nhật
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            
-            <input
-            {...register("price")}
-            className="giá khuyến mãi" type="text" placeholder="giá khuyến mãi" />
-            <label>giá khuyến mãi</label><br></br>
-            <p className="text-xs text-red-500">
-            {errors.price && errors.price.message}
-            </p>
-
-            
-            <select name="" id="" >
-                <option value="">vietnam</option>
-                <option value="">trung quoc</option>
-                <option value="">phap</option>
-
-            </select>
-
-            <button className="update">update</button>
-       </form>
-
+    </>
     )
-
- 
 }
 
 
